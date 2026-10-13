@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>متجر دجلة التجريبي — صفحة اختبار دردشة HyoNova</title>
+<style>
+  /* A deliberately opinionated shop theme: global resets and frame rules, as real themes have. */
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Georgia, "Times New Roman", serif; background: #fbf7ef; color: #2b2118; line-height: 1.9; }
+  iframe { max-width: 100% !important; border: 4px double #b08d57; }
+  header { background: #2b2118; color: #fbf7ef; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; }
+  header strong { font-size: 22px; letter-spacing: 1px; }
+  .note { background: #fff3cd; border-bottom: 1px solid #e0c97a; padding: 10px 24px; font-family: Arial, sans-serif; font-size: 14px; }
+  main { max-width: 980px; margin: 0 auto; padding: 24px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 18px; }
+  .card { background: #fff; border: 1px solid #e6dcc8; border-radius: 6px; padding: 16px; }
+  .card h3 { margin: 0 0 6px; font-size: 18px; }
+  .price { color: #8a5a1c; font-weight: bold; }
+  button.buy { background: #8a5a1c; color: #fff; border: 0; padding: 8px 14px; border-radius: 4px; cursor: pointer; font-family: inherit; }
+  footer { text-align: center; padding: 30px; color: #7a6a55; font-size: 13px; }
+  #state { font-family: Consolas, monospace; font-size: 12px; direction: ltr; text-align: left; background: #f1ead9; padding: 8px 12px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<header><strong>متجر دجلة</strong><span>صفحة اختبار — ليست متجراً حقيقياً</span></header>
+<div class="note">هذه صفحة اختبار خارجية لدردشة HyoNova المباشرة. المنتجات والأسعار وهمية. This is a test page for the HyoNova live chat; nothing here is for sale.</div>
+<main>
+  <h1>منتجاتنا</h1>
+  <div class="grid">
+    <div class="card"><h3>قهوة عربية ٢٥٠غ</h3><p class="price">٨٬٠٠٠ د.ع</p><button class="buy" onclick="cart++; show()">أضف إلى السلة</button></div>
+    <div class="card"><h3>تمر زهدي ١كغ</h3><p class="price">٦٬٥٠٠ د.ع</p><button class="buy" onclick="cart++; show()">أضف إلى السلة</button></div>
+    <div class="card"><h3>دلّة نحاسية</h3><p class="price">٣٥٬٠٠٠ د.ع</p><button class="buy" onclick="cart++; show()">أضف إلى السلة</button></div>
+    <div class="card"><h3>هيل أخضر ١٠٠غ</h3><p class="price">٩٬٠٠٠ د.ع</p><button class="buy" onclick="cart++; show()">أضف إلى السلة</button></div>
+  </div>
+  <p id="state"></p>
+  <p style="font-family: Arial, sans-serif; font-size: 14px">الودجة تُحمَّل من العنوان: <code id="src" dir="ltr"></code></p>
+</main>
+<footer>HyoNova live chat external test page · 2026</footer>
+<script>
+  // The page's own scripts, as a real site has them.
+  var cart = 0;
+  function show() { document.getElementById('state').textContent = 'cart=' + cart + ' · widget=' + (widget || '(none: add ?w=<widget id>)') + ' · host=' + host; }
+  var params = new URLSearchParams(location.search);
+  var widget = /^w_[A-Za-z0-9]{20,40}$/.test(params.get('w') || '') ? params.get('w') : '';
+  // ?host=api loads the older install code (API host); default is the dedicated chat host.
+  var host = params.get('host') === 'api' ? 'https://api.hyonova.com' : 'https://chat.hyonova.com';
+  show();
+  if (widget) {
+    var s = document.createElement('script');
+    s.src = host + '/chat/widget.js';
+    s.async = true;
+    s.setAttribute('data-widget-id', widget);
+    document.body.appendChild(s);
+    document.getElementById('src').textContent = s.src;
+  }
+</script>
+</body>
+</html>
